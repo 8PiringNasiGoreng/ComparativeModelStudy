@@ -9,7 +9,7 @@ from src import Config
 def evaluate_reconstruction(recon_fn, loader) -> dict:
     mse_sum, psnr_sum, ssim_sum, n = 0.0, 0.0, 0.0, 0
     for x, _ in loader:
-        x = x.to(config.DEVICE)
+        x = x.to(Config.DEVICE)
         x_hat = recon_fn(x).clamp(0, 1)
 
         mse_img = ((x - x_hat) ** 2).flatten(1).mean(dim=1)          # (B,)
@@ -25,10 +25,10 @@ def evaluate_reconstruction(recon_fn, loader) -> dict:
 
 @torch.no_grad()
 def compute_fid(real_loader, sample_fn, n_samples: int = 10000, batch_size: int = 250) -> float:
-    fid = FrechetInceptionDistance(feature=2048, normalize=True).to(config.DEVICE)
+    fid = FrechetInceptionDistance(feature=2048, normalize=True).to(Config.DEVICE)
 
     def _prep(t):
-        t = t.to(config.DEVICE).clamp(0, 1)
+        t = t.to(Config.DEVICE).clamp(0, 1)
         return t.repeat(1, 3, 1, 1) if t.size(1) == 1 else t
 
     seen = 0

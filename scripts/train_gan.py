@@ -23,7 +23,7 @@ import sys
 ROOT = Path(__file__).resolve().parents[1]  
 sys.path.insert(0, str(ROOT))
 
-from src import config
+from src import Config as config
 from src.data import dataset_info, get_dataloaders, to_0_1, to_minus1_1
 from src.metrics import compute_fid
 from src.models.gan import build_gan
