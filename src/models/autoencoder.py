@@ -20,6 +20,10 @@ class VanillaAE(nn.Module):
         )
         self.decoder = _decoder(latent, hidden, in_dim)
 
+    def hidden(self, x: torch.Tensor) -> torch.Tensor:
+        """Aktivasi hidden layer 256-dim (untuk perbandingan sparsity)."""
+        return self.encoder[1](self.encoder[0](x.flatten(1)))
+
     def encode(self, x: torch.Tensor) -> torch.Tensor:
         return self.encoder(x.flatten(1))
 
@@ -50,7 +54,7 @@ class SparseAE(nn.Module):
         x_hat = self.decode(self.enc2(h)).view_as(x)
         return x_hat, h
 
-    def forwarrd(self, x: torch.Tensor) -> torch.Tensor:
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
         return self.forward_with_h(x)[0]
 
 class VAE(nn.Module):
@@ -65,12 +69,12 @@ class VAE(nn.Module):
 
         self.fc_mu = nn.Linear(hidden, latent)
         self.fc_logvar = nn.Linear(hidden, latent)
-        self.decodedr = _decoder(latent, hidden, in_dim)
+        self.decoder = _decoder(latent, hidden, in_dim)
 
     def hidden(self, x: torch.Tensor) -> torch.Tensor:
         return self.enc(x.flatten(1))
 
-    def encoder(self, x: torch.Tensor) -> torch.Tensor:
+    def encode(self, x: torch.Tensor) -> torch.Tensor:
         h = self.hidden(x)
         return self.fc_mu(h), self.fc_logvar(h)
 
