@@ -2,7 +2,7 @@ import torch
 from torchmetrics.functional.image import structural_similarity_index_measure as _ssim
 from torchmetrics.image.fid import FrechetInceptionDistance
 
-from src import config
+from src import Config
 
 
 @torch.no_grad()

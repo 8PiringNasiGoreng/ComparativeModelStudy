@@ -1,8 +1,3 @@
-"""Figur 2: grid 4x4 sampel acak dari VAE, Vanilla GAN, DCGAN, dan DDPM.
-
-Prasyarat: checkpoint vae, gan, dcgan, ddpm sudah ada.
-Jalankan: python -m scripts.fig2_sampling
-"""
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt

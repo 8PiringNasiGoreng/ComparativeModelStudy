@@ -1,14 +1,3 @@
-"""Figur 4: interpolasi linear z(a) = (1-a) z_A + a z_B, a in {0, .2, .4, .6, .8, 1}.
-
-Baris: Vanilla AE, Sparse AE, VAE, Vanilla GAN, DCGAN.
-- AE / Sparse AE / VAE: z_A, z_B = encoding (mean untuk VAE) dua citra uji dari kelas kontras.
-- GAN / DCGAN tidak punya encoder. Bila mlp_classifier.pt ada, z_A dan z_B dipilih dari
-  noise acak yang gambar-hasilnya diklasifikasikan MLP sebagai kelas A dan B (kepercayaan
-  tertinggi dari 2000 kandidat); jika tidak, z_A dan z_B acak.
-
-Jalankan: python -m scripts.fig4_interpolation --class_a 1 --class_b 9
-(Fashion-MNIST: 1=Trouser, 9=Ankle boot; ubah sesuai dataset.)
-"""
 import argparse
 import json
 
