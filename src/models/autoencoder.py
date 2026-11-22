@@ -47,7 +47,7 @@ class SparseAE(nn.Module):
         return self.enc2(self.hidden(x))
 
     def decode(self, z: torch.Tensor) -> torch.Tensor:
-        return self.decode(z)
+        return self.decoder(z)
 
     def forward_with_h(self, x: torch.Tensor) -> torch.Tensor:
         h = self.hidden(x)
