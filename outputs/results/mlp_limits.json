@@ -1,0 +1,26 @@
+{
+  "classifier_test_acc": 0.8954285714285715,
+  "transpose_from_latent": {
+    "mse": 0.3172623546847275,
+    "psnr": 5.031374137980597,
+    "ssim": 0.03710809772597804
+  },
+  "frozen_decoder": {
+    "mse": 0.018076466565319735,
+    "psnr": 18.257438893454417,
+    "ssim": 0.7117690906247922
+  },
+  "vanilla_ae": {
+    "mse": 0.006474766261992045,
+    "psnr": 23.022366994312833,
+    "ssim": 0.868311515301466
+  },
+  "params": {
+    "frozen_decoder": 218128,
+    "vanilla_ae": 435536
+  },
+  "prior_sampling": {
+    "frac_negative_dims_in_z_rand": 0.17578125,
+    "frac_zero_dims_in_real_z": 0.521598219871521
+  }
+}
