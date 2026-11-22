@@ -1,9 +1,3 @@
-"""Vanilla GAN (fully-connected) dan DCGAN (konvolusional penuh).
-
-Konvensi: generator menghasilkan gambar di [-1, 1] (Tanh) -> data training diskalakan
-ke [-1, 1]. Method `sample(n)` mengembalikan gambar di [0, 1] agar langsung
-kompatibel dengan metrics.py dan save_image_grid.
-"""
 import math
 
 import torch
@@ -16,8 +10,6 @@ def _to_01(x: torch.Tensor) -> torch.Tensor:
 
 # ====================================================== Vanilla GAN (MLP)
 class VanillaGenerator(nn.Module):
-    """z(100) -> 256 -> 512 -> 1024 -> 784, LeakyReLU, output Tanh."""
-
     def __init__(self, noise_dim: int = 100, img_shape=(1, 28, 28), hidden=(256, 512, 1024)):
         super().__init__()
         self.noise_dim = noise_dim
@@ -39,8 +31,6 @@ class VanillaGenerator(nn.Module):
 
 
 class VanillaDiscriminator(nn.Module):
-    """784 -> 1024 -> 512 -> 256 -> 1 (logit), LeakyReLU + Dropout."""
-
     def __init__(self, img_shape=(1, 28, 28), hidden=(1024, 512, 256)):
         super().__init__()
         layers, d = [nn.Flatten()], math.prod(img_shape)
@@ -56,11 +46,6 @@ class VanillaDiscriminator(nn.Module):
 
 # ============================================================== DCGAN
 class DCGANGenerator(nn.Module):
-    """z(100) -> ConvT -> (init x init) -> ConvT -> 2*init -> ConvT -> 4*init (= ukuran citra).
-
-    28x28: 7 -> 14 -> 28 | 32x32: 8 -> 16 -> 32. BatchNorm + ReLU, output Tanh.
-    """
-
     def __init__(self, noise_dim: int = 100, img_shape=(1, 28, 28)):
         super().__init__()
         c, size, _ = img_shape
@@ -85,8 +70,6 @@ class DCGANGenerator(nn.Module):
 
 
 class DCGANDiscriminator(nn.Module):
-    """Conv stride-2 (tanpa pooling), BatchNorm, LeakyReLU; keluaran 1 logit."""
-
     def __init__(self, img_shape=(1, 28, 28)):
         super().__init__()
         c, size, _ = img_shape
@@ -102,7 +85,6 @@ class DCGANDiscriminator(nn.Module):
 
 
 def _init_weights(m: nn.Module) -> None:
-    """Inisialisasi DCGAN: bobot ~ N(0, 0.02); BatchNorm ~ N(1, 0.02)."""
     if isinstance(m, (nn.Conv2d, nn.ConvTranspose2d)):
         nn.init.normal_(m.weight, 0.0, 0.02)
         if m.bias is not None:
@@ -113,7 +95,6 @@ def _init_weights(m: nn.Module) -> None:
 
 
 def build_gan(name: str, noise_dim: int = 100, img_shape=(1, 28, 28)):
-    """Return (Generator, Discriminator)."""
     if name == "gan":
         return VanillaGenerator(noise_dim, img_shape), VanillaDiscriminator(img_shape)
     if name == "dcgan":

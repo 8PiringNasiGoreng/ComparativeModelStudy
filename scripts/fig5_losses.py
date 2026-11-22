@@ -1,9 +1,3 @@
-"""Figur 5: kurva training loss keenam model + trajektori reverse diffusion DDPM.
-Juga membuat fig5b_gan_diagnostics.png (D(x), D(G(z)), norma gradien G) untuk analisis Q3.
-
-Prasyarat: JSON hasil training di outputs/results/ dan outputs/figures/ddpm_trajectory.png.
-Jalankan: python -m scripts.fig5_losses
-"""
 import json
 
 import matplotlib
@@ -11,7 +5,7 @@ matplotlib.use("Agg")
 import matplotlib.image as mpimg
 import matplotlib.pyplot as plt
 
-from src import config
+from src import Config as config
 
 
 def jload(name):

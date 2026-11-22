@@ -1,4 +1,3 @@
-"""Fungsi pemuat checkpoint untuk skrip figur & evaluasi (Tahap 6)."""
 import json
 
 import torch
@@ -26,7 +25,6 @@ def _ckpt(name):
 
 
 def load_ae(name: str):
-    """name: vanilla | sparse | vae"""
     shape = img_shape()
     m = build_ae(name, in_dim=shape[0] * shape[1] * shape[2], latent=Config.LATENT_DIM, img_shape=shape).to(DEV)
     m.load_state_dict(_ckpt(name))
@@ -34,7 +32,6 @@ def load_ae(name: str):
 
 
 def load_gan(name: str):
-    """name: gan | dcgan -> generator"""
     g, _ = build_gan(name, Config.GAN_NOISE_DIM, img_shape())
     g = g.to(DEV)
     g.load_state_dict(_ckpt(name)["G"])
@@ -42,7 +39,6 @@ def load_gan(name: str):
 
 
 def load_ddpm(base: int = 64, timesteps: int | None = None):
-    """Return (unet_ema, diffusion). `timesteps` dibaca dari ddpm.json bila tidak diberikan."""
     if timesteps is None:
         meta = Config.RES_DIR / "ddpm.json"
         timesteps = json.load(open(meta))["timesteps"] if meta.exists() else 1000

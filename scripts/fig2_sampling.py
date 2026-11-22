@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import torch
 from torchvision.utils import make_grid
 
-from src import config
+from src import Config as config
 from src.loading import img_shape, load_ae, load_ddpm, load_gan
 from src.utils import set_seed
 

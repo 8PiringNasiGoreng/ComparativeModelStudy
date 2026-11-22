@@ -1,13 +1,3 @@
-"""DDPM (Ho et al., 2020): U-Net kecil + proses difusi Gaussian.
-
-Forward   : q(x_t | x_0) = N( sqrt(abar_t) x_0 , (1 - abar_t) I )
-Training  : L_simple = E || eps - eps_theta( sqrt(abar_t) x_0 + sqrt(1-abar_t) eps , t ) ||^2
-Reverse   : x_{t-1} = 1/sqrt(alpha_t) * ( x_t - beta_t/sqrt(1-abar_t) * eps_theta(x_t, t) ) + sigma_t z,
-            sigma_t^2 = beta_t
-
-Data diskalakan ke [-1, 1]. `sample` mengembalikan gambar di [0, 1].
-Indeks timestep di kode berbasis 0: t = 0 .. T-1.
-"""
 import math
 
 import torch
@@ -17,7 +7,6 @@ import torch.nn.functional as F
 
 # ----------------------------------------------------------------- U-Net
 def timestep_embedding(t: torch.Tensor, dim: int) -> torch.Tensor:
-    """Sinusoidal embedding posisi timestep -> (B, dim)."""
     half = dim // 2
     freqs = torch.exp(-math.log(10000.0) * torch.arange(half, device=t.device, dtype=torch.float32) / half)
     args = t.float()[:, None] * freqs[None]
@@ -42,8 +31,6 @@ class ResBlock(nn.Module):
 
 
 class AttnBlock(nn.Module):
-    """Self-attention satu kepala pada resolusi terendah (7x7 / 8x8)."""
-
     def __init__(self, ch: int):
         super().__init__()
         self.norm = nn.GroupNorm(8, ch)

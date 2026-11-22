@@ -8,7 +8,7 @@ import torch
 import torch.nn.functional as F
 from torchvision.utils import make_grid
 
-from src import config
+from src import Config as config
 from src.data import get_dataloaders
 from src.loading import img_shape, load_ae, load_classifier, load_gan
 from src.utils import set_seed

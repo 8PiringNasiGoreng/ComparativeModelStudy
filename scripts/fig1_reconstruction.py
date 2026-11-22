@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 import torch
 from torchvision.utils import make_grid
 
-from src import config
+from src import Config as config
 from src.data import dataset_info, get_dataloaders
 from src.models.autoencoder import build_ae
 from src.utils import set_seed

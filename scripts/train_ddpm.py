@@ -1,14 +1,3 @@
-"""Latih & evaluasi DDPM.
-
-Contoh (dari root repo):
-    python -m scripts.train_ddpm --epochs 1          # uji cepat + ukur waktu per epoch
-    python -m scripts.train_ddpm --epochs 40         # training penuh
-    python -m scripts.train_ddpm --epochs 40 --resume  # lanjutkan bila sesi terputus
-
-Catatan FID: sampling DDPM butuh T langkah, jadi FID 10.000 sampel sangat lama.
-Secara default FID dilewati (--fid_samples 0); hitung nanti dengan jumlah sampel yang
-SAMA untuk semua model agar adil.
-"""
 import argparse
 import copy
 import json
@@ -20,7 +9,7 @@ import matplotlib.pyplot as plt
 import torch
 from torchvision.utils import make_grid
 
-from src import config
+from src import Config as config
 from src.data import dataset_info, get_dataloaders, to_minus1_1
 from src.metrics import compute_fid
 from src.models.ddpm import GaussianDiffusion, UNet

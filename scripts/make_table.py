@@ -1,9 +1,8 @@
-"""Metrik evaluasi yang sama untuk semua model (semua input di rentang [0, 1])."""
 import torch
 from torchmetrics.functional.image import structural_similarity_index_measure as _ssim
 from torchmetrics.image.fid import FrechetInceptionDistance
 
-from src import config
+from src import Config as config
 
 
 @torch.no_grad()

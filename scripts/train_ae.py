@@ -1,15 +1,3 @@
-"""Latih & evaluasi Vanilla AE / Sparse AE / VAE.
-
-Contoh (dari root repo):
-    python -m scripts.train_ae --model vanilla
-    python -m scripts.train_ae --model sparse --lam 1e-2
-    python -m scripts.train_ae --model vae
-
-Loss:
-    vanilla : MSE
-    sparse  : MSE + lambda * mean(|h|)    (h = aktivasi hidden layer 256-dim)
-    vae     : BCE (sum piksel) + KL       (rata-rata per sampel)
-"""
 import argparse
 import json
 import time
@@ -17,7 +5,7 @@ import time
 import torch
 import torch.nn.functional as F
 
-from src import config
+from src import Config as config
 from src.data import dataset_info, get_dataloaders
 from src.metrics import compute_fid, evaluate_reconstruction
 from src.models.autoencoder import build_ae
