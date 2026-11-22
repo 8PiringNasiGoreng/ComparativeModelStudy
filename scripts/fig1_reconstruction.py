@@ -10,7 +10,7 @@ import torch
 from torchvision.utils import make_grid
 
 from src import Config as config
-from src.data import dataset_info, get_dataloaders
+from src.data import dataset_info, get_data
 from src.models.autoencoder import build_ae
 from src.utils import set_seed
 
@@ -21,7 +21,7 @@ def main():
     set_seed()
     channels, size = dataset_info()
     in_dim = channels * size * size
-    _, _, test_loader = get_dataloaders()
+    _, _, test_loader = get_data()
     x = next(iter(test_loader))[0][:N].to(config.DEVICE)   # test set tidak di-shuffle -> selalu sama
 
     rows = [("Ground Truth", x)]

@@ -9,7 +9,7 @@ import torch.nn.functional as F
 from torchvision.utils import make_grid
 
 from src import Config as config
-from src.data import get_dataloaders
+from src.data import get_data
 from src.loading import img_shape, load_ae, load_classifier, load_gan
 from src.utils import set_seed
 
@@ -51,7 +51,7 @@ def main():
 
     shape = img_shape()
     set_seed()
-    _, _, test_loader = get_dataloaders()
+    _, _, test_loader = get_data()
     xA, xB = pick_images(test_loader, args.class_a, args.class_b)
 
     rows = []

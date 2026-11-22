@@ -6,7 +6,7 @@ import torch
 import torch.nn.functional as F
 
 from src import Config as config
-from src.data import dataset_info, get_dataloaders
+from src.data import dataset_info, get_data
 from src.metrics import compute_fid, evaluate_reconstruction
 from src.models.autoencoder import build_ae
 from src.utils import count_params, measure_latency, plot_losses, save_image_grid, set_seed
@@ -81,7 +81,7 @@ def main():
     in_dim = channels * size * size
 
     set_seed()
-    train_loader, val_loader, test_loader = get_dataloaders()
+    train_loader, val_loader, test_loader = get_data()
     model = build_ae(name, in_dim=in_dim, latent=config.LATENT_DIM, img_shape=img_shape).to(DEV)
     opt = torch.optim.Adam(model.parameters(), lr=args.lr)
     recon_fn = get_recon_fn(name, model)

@@ -24,7 +24,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from src import Config as config
-from src.data import dataset_info, get_dataloaders, to_0_1, to_minus1_1
+from src.data import dataset_info, get_data, to_0_1, to_minus1_1
 from src.metrics import compute_fid
 from src.models.gan import build_gan
 from src.utils import count_params, measure_latency, plot_losses, save_image_grid, set_seed
@@ -49,7 +49,7 @@ def main():
     nz = config.GAN_NOISE_DIM
 
     set_seed()
-    train_loader, _, test_loader = get_dataloaders()
+    train_loader, _, test_loader = get_data()
     G, D = build_gan(args.model, nz, img_shape)
     G, D = G.to(DEV), D.to(DEV)
     opt_g = torch.optim.Adam(G.parameters(), lr=args.lr, betas=(0.5, 0.999))

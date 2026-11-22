@@ -10,7 +10,7 @@ import torch
 from torchvision.utils import make_grid
 
 from src import Config as config
-from src.data import dataset_info, get_dataloaders, to_minus1_1
+from src.data import dataset_info, get_data, to_minus1_1
 from src.metrics import compute_fid
 from src.models.ddpm import GaussianDiffusion, UNet
 from src.utils import count_params, measure_latency, plot_losses, save_image_grid, set_seed
@@ -76,7 +76,7 @@ def main():
     img_shape = (channels, size, size)
 
     set_seed()
-    train_loader, val_loader, test_loader = get_dataloaders()
+    train_loader, val_loader, test_loader = get_data()
     model = UNet(in_ch=channels, base=args.base).to(DEV)
     ema_model = copy.deepcopy(model).eval()
     for p in ema_model.parameters():
