@@ -16,10 +16,6 @@ from src.utils import set_seed
 
 N = 8
 
-
-
-
-
 def main():
     set_seed()
     channels, size = dataset_info()
